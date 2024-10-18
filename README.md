@@ -1,6 +1,10 @@
 # Weatherly
 
-Just a weather app.
+Just a weather android app.
+
+## API
+
+- [WeatherAPI](https://www.weatherapi.com)
 
 ## Libraries
 
