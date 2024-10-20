@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.aiinty.weatherly.R
 import com.aiinty.weatherly.api.NetworkResponse
 import com.aiinty.weatherly.api.weathermodel.WeatherModel
 import com.aiinty.weatherly.ui.viewmodel.WeatherViewModel
@@ -66,13 +68,13 @@ fun WeatherScreen(
                 modifier = Modifier.weight(1f),
                 value = location,
                 onValueChange = { location = it },
-                label = { Text("Location") }
+                label = { Text(stringResource(R.string.location)) }
             )
 
             IconButton(onClick = { viewModel.getWeather(location) }) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Search"
+                    contentDescription = stringResource(R.string.search)
                 )
             }
         }
@@ -137,7 +139,7 @@ private fun WeatherDetails(
                 .data("https:${data.current.condition.icon}".replace("64x64", "128x128"))
                 .crossfade(true)
                 .build(),
-            contentDescription = "Current weather"
+            contentDescription = stringResource(R.string.current_weather)
         )
         Text(
             text = data.current.condition.text,
@@ -153,20 +155,33 @@ private fun WeatherDetails(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Column (
-                    modifier = Modifier
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    WeatherKeyView("Humidity", data.current.humidity)
-                    WeatherKeyView("UV", data.current.uv)
+                    WeatherKeyView(
+                        titleId = R.string.humidity,
+                        value = data.current.humidity,
+                        measurement = " %"
+                    )
+                    WeatherKeyView(
+                        titleId = R.string.uv,
+                        value = data.current.uv
+                    )
                 }
                 Column (
-                    modifier = Modifier
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    WeatherKeyView("Wind Speed", "${data.current.wind_kph} km/h")
-                    WeatherKeyView("Precipitation ", "${data.current.precip_mm} mm")
+                    WeatherKeyView(
+                        titleId = R.string.wind_speed,
+                        measurementId = R.string.km_h,
+                        value = data.current.wind_kph
+                    )
+                    WeatherKeyView(
+                        titleId = R.string.precipitation,
+                        measurementId = R.string.mm,
+                        value = data.current.precip_mm
+                    )
                 }
             }
         }
@@ -175,20 +190,33 @@ private fun WeatherDetails(
 
 @Composable
 private fun WeatherKeyView(
-    key: String,
-    value: String
+    title: String = "",
+    titleId: Int? = null,
+    value: String,
+    measurement: String = "",
+    measurementId: Int? = null,
 ) {
+    var displayTitle = title
+    var displayMeasurement = measurement
+
+    if (titleId != null) {
+        displayTitle = stringResource(titleId)
+    }
+    if (measurementId != null) {
+        displayMeasurement = stringResource(measurementId)
+    }
+
     Column(
         modifier = Modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = value,
+            text = "$value$displayMeasurement",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = key,
+            text = displayTitle,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )

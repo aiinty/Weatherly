@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="humidity">Влажность</string>
+    <string name="wind_speed">Ветер</string>
+    <string name="uv">УФ</string>
+    <string name="precipitation">Осадки</string>
+    <string name="mm">" мм"</string>
+    <string name="km_h">" км/ч"</string>
+    <string name="m_s">" м/с"</string>
+    <string name="location">Место</string>
+    <string name="search">Искать</string>
+    <string name="current_weather">Текущая погода</string>
+</resources>

@@ -6,6 +6,8 @@ Just a weather android app.
 
 - [WeatherAPI](https://www.weatherapi.com)
 
+BASE_URL and API_KEY are changed in build.gradle.kts of the app.
+
 ## Libraries
 
 - Jetpack Compose
@@ -13,3 +15,8 @@ Just a weather android app.
 - LiveData
 - Retrofit2
 - Coil3
+
+## Result
+
+| ![example](.media/preview1.jpg) | 
+|---------------------------------|
