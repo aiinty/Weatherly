@@ -18,5 +18,4 @@ BASE_URL and API_KEY are changed in build.gradle.kts of the app.
 
 ## Result
 
-| ![example](.media/preview1.jpg) | 
-|---------------------------------|
+<img src=".media/preview1.jpg" width=30% height=30%>
